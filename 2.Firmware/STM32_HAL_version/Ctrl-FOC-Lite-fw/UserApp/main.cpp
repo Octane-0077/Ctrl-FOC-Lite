@@ -6,7 +6,6 @@ EncoderAS5047 encoder;
 /* Component Definitions -----------------------------------------------------*/
 BoardConfig_t boardConfig;
 
-
 #include "adc.h"
 
 /* Main Entry ----------------------------------------------------------------*/
@@ -17,10 +16,11 @@ void Main()
 
     encoder.Init();
 
-    //HAL_TIM_Base_Start_IT(&htim1);
+    // HAL_TIM_Base_Start_IT(&htim1);
+    // HAL_TIM_Base_Start_IT(&htim1);
+    // HAL_TIM_Base_Start_IT(&htim1);
 
     HAL_ADCEx_Calibration_Start(&hadc1);
-
 
     HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
     HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_1);
@@ -38,19 +38,19 @@ void Main()
     __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_4, 720);
     HAL_ADCEx_InjectedStart_IT(&hadc1);
 
-
     for (;;)
     {
         encoder.update();
-//        printf("%.2f,%.2f\n", encoder.GetAngle(), encoder.getVelocity());
+        //        printf("%.2f,%.2f\n", encoder.GetAngle(), encoder.getVelocity());
+        //        printf("%.2f,%.2f\n", encoder.GetAngle(), encoder.getVelocity());
+        //        printf("%.2f,%.2f\n", encoder.GetAngle(), encoder.getVelocity());
         delay(1);
 
         printf("%d,%d\n", adcData[0], adcData[1]);
     }
 }
 
-
-void HAL_ADCEx_InjectedConvCpltCallback(ADC_HandleTypeDef* hadc)
+void HAL_ADCEx_InjectedConvCpltCallback(ADC_HandleTypeDef *hadc)
 {
     GPIOB->BSRR = GPIO_PIN_12;
     adcData[0] = hadc->Instance->JDR1;
